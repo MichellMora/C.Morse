@@ -1,9 +1,13 @@
 package com.proyecto.cdigomorse
 
-import androidx.appcompat.app.AppCompatActivity
+import android.R.string
 import android.os.Bundle
-import android.widget.*
-import kotlin.text.isEmpty as isEmpty
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Ingrese el código morse a traducir", Toast.LENGTH_SHORT).show()
             } else {
 
-               // tradMORSE(etmMorse,etMsj)
+                // tradMORSE(etmMorse,etMsj)
             }
 
         }
@@ -44,39 +48,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun tradMSJ(etmMorse:EditText, etMsj:EditText){
 
-       val letras = arrayOf("a","b","c","d","e",
-       "f","g","h","i","j","k","m","l","n","o","p","q","r","s",
-       "t","u","v","w","x","y","z")
+
+
+        val letras = arrayOf("a","b","c","d","e",
+                "f","g","h","i","j","k","m","l","n","o","p","q","r","s",
+                "t","u","v","w","x","y","z")
 
         val Cmorse = arrayOf(".-","-...","-.-.","-..",".",
                 "..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...",
                 "-","..-","...-",".--","-..-","-.--","--..")
 
-        for (letra in 0..25){
-            for (l in letras)
-            if (etMsj.text.toString() == letras[letra]){
-                for (morse in Cmorse){
-                    /*letras.get(2) == Cmorse.get(morse.toInt())*/
+        val frase: String =  etMsj.text.toString()
 
-                    etmMorse.setText(Cmorse.get(letra))
-                }
+        val fraseS: Array<String> = frase.split(",").toTypedArray()
 
+        var aux = arrayListOf<String>()
+
+
+        /*Log.d("LLegó" , "antes del for")
+        for (i in frase.indices){
+            Log.d("LLegó" , " antes del for 2")
+            for (j in letras.indices){
+                if(fraseS[i] == letras[j]){
+                        aux.add(letras.get(j))
+                    Log.d("LLegó" , " despues de agregar las letras")
+                    etmMorse.setText(Cmorse[j])
                 }
+                    //aux = aux + Cmorse.get(j)
+
 
 
             }
+        }*/
 
+        for(i in Cmorse.indices){
+            etmMorse.setText(Cmorse[i])
+        }
 
     }
 
-
-
-
-
 }
-
-
-
-
-
-
