@@ -79,12 +79,12 @@ class MainActivity : AppCompatActivity() {
             println("La posición $i tiene el valor $v")
             aux.add(frase[i].toString()) // almacenar datos de la frase en el array auxiliar
             if (aux[i] == " ") { // si hay espacios vacios
-                txttraducido = txttraducido + "   " // almacena el espacio junto con los demás datos almacenados en la variable de traducción
+                txttraducido = txttraducido + "//" // almacena el espacio junto con los demás datos almacenados en la variable de traducción
             } else {
                 for ((j, v) in ABC.withIndex()) { // for del tamaño del ABC para poder recorrer el array de codmorse
                     if (ABC[j] == "$v" && aux[i] == "$v") { // se determinan las letras que son iguales entre el array ABC y la frase (almacenada en aux)
                         Log.d("Se pudo", "si hay simillares") // verifica las letras minusculas iguales y las imprime en consola
-                        txttraducido = txttraducido + Cmorse[j] // añade al estado actual de la traducción la nueva palabra traducida en codigo morse
+                        txttraducido = txttraducido + "   " + Cmorse[j] + "  " // añade al estado actual de la traducción la nueva palabra traducida en codigo morse
                         Log.d("codtrad", "$txttraducido") // imprime en cada ciclo por medio de la consola el valor de la traducción, termina cuando ya no hay palabras por traducir
                         etmMorse.setText(txttraducido)// muestra en el campo de código morse la palabra traducida
                     }
