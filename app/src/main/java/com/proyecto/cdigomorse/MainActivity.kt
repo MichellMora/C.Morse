@@ -1,6 +1,5 @@
 package com.proyecto.cdigomorse
 
-import android.R.string
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -22,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         val btnTrad = findViewById<Button>(R.id.btn_traducir)
         val btnTrad2 = findViewById<Button>(R.id.btn_traducir2)
 
+        Toast.makeText(this, "Recuerda que el software solo permite mensajes en letra mínuscula", Toast.LENGTH_SHORT).show()
+
+
         btnTrad.setOnClickListener {
 
             if (etMsj.text.isEmpty()) {
@@ -39,52 +41,100 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Ingrese el código morse a traducir", Toast.LENGTH_SHORT).show()
             } else {
 
-                // tradMORSE(etmMorse,etMsj)
+                tradMORSE(etmMorse,etMsj)
             }
 
         }
 
     }
 
-    private fun tradMSJ(etmMorse:EditText, etMsj:EditText){
+    private fun tradMSJ(etmMorse:EditText, etMsj:EditText) {
 
+        //Declaración de dos arrays para el código morse y para el abecedario
 
-
-        val letras = arrayOf("a","b","c","d","e",
-                "f","g","h","i","j","k","m","l","n","o","p","q","r","s",
-                "t","u","v","w","x","y","z")
-
-        val Cmorse = arrayOf(".-","-...","-.-.","-..",".",
+        val Cmorse = arrayListOf(".-","-...","-.-.","-..",".",
                 "..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...",
                 "-","..-","...-",".--","-..-","-.--","--..")
 
-        val frase: String =  etMsj.text.toString()
+        val ABC = arrayListOf("a","b","c","d","e",
+                "f","g","h","i","j","k","l","m","n","o","p","q","r","s",
+                "t","u","v","w","x","y","z")
 
-        val fraseS: Array<String> = frase.split(",").toTypedArray()
+        //Array auxiliar donde se almacenará el mensaje del usuario
 
         var aux = arrayListOf<String>()
 
+        // Mensaje de usuario
 
-        /*Log.d("LLegó" , "antes del for")
-        for (i in frase.indices){
-            Log.d("LLegó" , " antes del for 2")
-            for (j in letras.indices){
-                if(fraseS[i] == letras[j]){
-                        aux.add(letras.get(j))
-                    Log.d("LLegó" , " despues de agregar las letras")
-                    etmMorse.setText(Cmorse[j])
+        var frase: String = etMsj.text.toString()
+
+        //String donde se almacena el código morse despues de traducido
+
+        var txttraducido = ""
+
+        Log.d("LLegó" , "antes del for")
+        for ((i,v) in frase.withIndex()){ // permite acceder a la posición y el valor de cada letra de la frase
+            println("La posición $i tiene el valor $v")
+            aux.add(frase[i].toString()) // almacenar datos de la frase en el array auxiliar
+            if (aux[i] == " "){ // si hay espacios vacios
+                txttraducido = txttraducido + "   " // almacena el espacio junto con los demás datos almacenados en la variable de traducción
+            }else{
+                for ((j,v) in ABC.withIndex()){ // for del tamaño del ABC para poder recorrer el array de codmorse
+                    if(ABC[j] == "$v" && aux[i] == "$v" ){ // se determinan las letras que son iguales entre el array ABC y la frase (almacenada en aux)
+                        Log.d("Se pudo" , "si hay simillares") // verifica las letras minusculas iguales y las imprime en consola
+                            txttraducido = txttraducido + Cmorse[j] // añade al estado actual de la traducción la nueva palabra traducida en codigo morse
+                            Log.d("codtrad" , "$txttraducido") // imprime en cada ciclo por medio de la consola el valor de la traducción, termina cuando ya no hay palabras por traducir
+                            etmMorse.setText(txttraducido)// muestra en el campo de código morse la palabra traducida
+                    }
                 }
-                    //aux = aux + Cmorse.get(j)
-
-
 
             }
-        }*/
 
-        for(i in Cmorse.indices){
-            etmMorse.setText(Cmorse[i])
         }
+
+        for ((i,v) in aux.withIndex()){
+            println("La posición2 $i tiene el valor $v") // recorre el array aux e imprime cada letra en un ciclo distinto
+        }
+
+        }
+
+
+
+    private fun tradMORSE (etmMorse:EditText, etMsj:EditText){
+
+        val Cmorse = arrayListOf(".-","-...","-.-.","-..",".",
+                "..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...",
+                "-","..-","...-",".--","-..-","-.--","--..")
+
+        val ABC = arrayListOf("a","b","c","d","e",
+                "f","g","h","i","j","k","l","m","n","o","p","q","r","s",
+                "t","u","v","w","x","y","z")
+
+        val original = "Hola mundo"
+        var cod: String = etmMorse.text.toString()
+
+        val partes = original.split(" ".toRegex()).toTypedArray() // separamos por el espacio
+        val codP = cod.split(" ".toRegex()).toTypedArray() // separamos por el espacio
+        var codA = arrayListOf<String>()
+
+        for ((i,v) in cod.withIndex()){
+            codA.add(cod[i].toString())
+        }
+
+        for ((i,v) in codA.withIndex()){
+            println("La posición $i tiene el valor $v")
+        }
+
+
+
+
+
+        println(partes[0]) // Hola
+
+        println(partes[1]) // mundo
+
 
     }
 
-}
+
+ }
